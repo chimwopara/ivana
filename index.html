@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivana Foundation | Restoring Dignity</title>
+    <meta name="description" content="Ivana Foundation shares the love of Jesus Christ through practical compassion.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            base: '#FDFCF8', // Warm paper
+                            dark: '#1a1625', // Deep purple-black
+                            primary: '#5B21B6', // Vivid Purple
+                            accent: '#D97706', // Ochre Gold
+                            muted: '#94A3B8',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    backgroundImage: {
+                        'grain': "url('https://grainy-gradients.vercel.app/noise.svg')",
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Scrolling & Base */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #FDFCF8;
+            color: #1a1625;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 4px;
+        }
+
+        /* Grain Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        /* Typography Tweaks */
+        .text-huge {
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+        }
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent;
+        }
+
+        /* Image Masks */
+        .mask-arch {
+            mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 0,100 C 0,0 200,0 200,100 L 200,300 L 0,300 Z' fill='black'/%3E%3C/svg%3E");
+            mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 0,100 C 0,0 200,0 200,100 L 200,300 L 0,300 Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+        }
+
+        /* Utilities */
+        .clip-text-image {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hover-lift-image img {
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .hover-lift-image:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Glass Buttons */
+        .btn-glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark Glass (for light backgrounds) */
+        .btn-glass-dark {
+            background: rgba(26, 22, 37, 0.85); /* brand-dark with opacity */
+            color: white;
+        }
+        .btn-glass-dark:hover {
+            background: rgba(26, 22, 37, 0.95);
+            box-shadow: 0 0 25px rgba(91, 33, 182, 0.25); /* Primary glow */
+            border-color: rgba(217, 119, 6, 0.4); /* Accent border */
+            transform: translateY(-2px);
+        }
+
+        /* Light Glass (for dark backgrounds) */
+        .btn-glass-light {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .btn-glass-light:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* Accent Glass (Gold) */
+        .btn-glass-accent {
+            background: rgba(217, 119, 6, 0.85);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-glass-accent:hover {
+            background: rgba(217, 119, 6, 0.95);
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-accent selection:text-white">
+    
+    <!-- Noise Filter -->
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation (Floating Pill) -->
+    <nav class="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4">
+        <div class="bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-brand-dark/5 rounded-full px-6 py-3 flex items-center gap-8 transition-all duration-500 max-w-2xl w-full justify-between">
+            <a href="#" class="font-serif font-black text-2xl tracking-tighter hover:text-brand-primary transition">
+                IVANA<span class="text-brand-accent">.</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-brand-dark transition">Mission</a>
+                <a href="#impact" class="hover:text-brand-dark transition">Impact</a>
+                <a href="#programs" class="hover:text-brand-dark transition">Programs</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://fillout.com" target="_blank" class="hidden sm:flex items-center justify-center btn-glass btn-glass-dark px-6 py-2 rounded-full text-sm font-bold transition-all duration-300">
+                    Donate
+                </a>
+                <button id="menu-btn" class="md:hidden text-2xl text-brand-dark">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-base z-[90] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8">
+        <button id="close-menu" class="absolute top-8 right-8 text-4xl text-brand-dark">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#about" class="text-4xl font-serif font-bold hover:text-brand-accent">Mission</a>
+        <a href="#impact" class="text-4xl font-serif font-bold hover:text-brand-accent">Impact</a>
+        <a href="#programs" class="text-4xl font-serif font-bold hover:text-brand-accent">Programs</a>
+        <a href="https://fillout.com" class="text-2xl font-sans btn-glass btn-glass-accent px-8 py-3 rounded-full">Donate Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-center pt-32 pb-20 overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-brand-primary/10 rounded-full blur-[100px] animate-float"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-brand-accent/10 rounded-full blur-[100px] animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="container mx-auto px-4 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div class="lg:col-span-7 fade-in-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-px w-12 bg-brand-accent"></div>
+                    <span class="uppercase tracking-[0.2em] text-xs font-bold text-brand-muted">Non-Profit Organization</span>
+                </div>
+                
+                <h1 class="text-huge font-serif font-medium text-brand-dark mb-8">
+                    Love in <br>
+                    <span class="italic text-brand-primary">Motion.</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-slate-600 font-light max-w-lg mb-10 leading-relaxed">
+                    We don't just send aid; we build relationships. Restoring dignity to widows, protecting orphans, and empowering students.
+                </p>
+
+                <div class="flex flex-wrap gap-6">
+                    <a href="https://fillout.com" target="_blank" class="btn-glass btn-glass-dark px-10 py-4 rounded-full text-lg font-medium transition-all">
+                        Give Hope Today
+                    </a>
+                    <a href="#about" class="group flex items-center gap-3 px-6 py-4 rounded-full border border-slate-200 hover:border-brand-dark transition-all">
+                        <span>Read Our Story</span>
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image / Visual -->
+            <div class="lg:col-span-5 relative fade-in-up" style="transition-delay: 0.2s;">
+                <div class="relative aspect-[3/4] md:aspect-[4/5] mask-arch hover-lift-image overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Hope" class="w-full h-full object-cover">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-8 right-8 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg max-w-[200px]">
+                        <p class="font-serif italic text-lg leading-tight text-brand-dark">"Faith without works is dead."</p>
+                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide">— James 2:26</p>
+                    </div>
+                </div>
+                
+                <!-- Decorative Graphic -->
+                <svg class="absolute -z-10 -bottom-12 -left-12 w-32 h-32 text-brand-accent/20 animate-spin-slow" viewBox="0 0 100 100">
+                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
+                    <text font-size="12" font-family="DM Sans" font-weight="bold" letter-spacing="2" fill="currentColor">
+                        <textPath href="#circlePath">IVANA FOUNDATION • EST. 2024 • </textPath>
+                    </text>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Divider -->
+    <div class="bg-brand-dark text-white py-6 border-y border-white/10 relative z-20 -rotate-1 origin-left scale-105">
+        <div class="marquee-container opacity-80">
+            <div class="marquee-content font-serif text-3xl italic">
+                Compassion in Action • Restoring Dignity • Empowering the Future • Widows • Orphans • Education • Gospel Centered • Compassion in Action • Restoring Dignity • Empowering the Future • Widows • Orphans • Education • Gospel Centered •
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Stats (Broken Grid) -->
+    <section id="impact" class="py-24 container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-end">
+            <div class="lg:col-span-1 mb-8 lg:mb-0 fade-in-up">
+                <h3 class="font-bold text-sm tracking-widest uppercase text-brand-accent mb-2">Our Impact</h3>
+                <h2 class="font-serif text-4xl text-brand-dark">By the Numbers</h2>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 fade-in-up" style="transition-delay: 0.1s;">
+                <p class="text-6xl font-serif text-brand-primary mb-2 counter" data-target="120">0</p>
+                <p class="text-slate-500 font-medium">Widows Supported Monthly</p>
+            </div>
+
+            <div class="bg-brand-primary text-white p-8 rounded-3xl shadow-xl transform lg:-translate-y-12 fade-in-up" style="transition-delay: 0.2s;">
+                <p class="text-6xl font-serif text-brand-accent mb-2 counter" data-target="45">0</p>
+                <p class="text-white/80 font-medium">Student Scholarships Given</p>
+            </div>
+
+            <div class="bg-brand-base p-8 rounded-3xl border border-slate-200 fade-in-up" style="transition-delay: 0.3s;">
+                <p class="text-6xl font-serif text-slate-800 mb-2 counter" data-target="100">0</p>
+                <p class="text-slate-500 font-medium">% Gospel Centered</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission / About (Editorial Layout) -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="relative fade-in-up">
+                    <div class="absolute -top-10 -left-10 w-24 h-24 bg-brand-accent rounded-full mix-blend-multiply opacity-80"></div>
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-[3rem] shadow-2xl relative z-10 w-full grayscale hover:grayscale-0 transition duration-700">
+                    
+                    <!-- Quote Card -->
+                    <div class="absolute -bottom-10 -right-5 md:right-10 bg-white p-8 rounded-tr-3xl rounded-bl-3xl shadow-xl z-20 max-w-sm border-l-4 border-brand-primary">
+                        <i class="fas fa-quote-left text-brand-primary/20 text-4xl absolute top-4 left-4"></i>
+                        <p class="relative z-10 text-brand-dark font-serif italic text-lg">
+                            "Pure religion is this: to look after orphans and widows in their distress."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="fade-in-up" style="transition-delay: 0.2s;">
+                    <h2 class="text-5xl md:text-6xl font-serif text-brand-dark mb-8 leading-tight">
+                        We are the <br>
+                        <span class="text-brand-accent decoration-brand-primary underline decoration-wavy decoration-2 underline-offset-8">Hands & Feet.</span>
+                    </h2>
+                    <p class="text-lg text-slate-600 mb-6 font-light">
+                        Ivana Foundation was born from a simple conviction: compassion isn't a feeling, it's an action. In communities where widows are marginalized and education is a luxury, we step in to bridge the gap.
+                    </p>
+                    <p class="text-lg text-slate-600 mb-10 font-light">
+                        Every dollar given goes directly to the field. No bloated overhead, just practical love impacting real lives in real time.
+                    </p>
+
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center"><i class="fas fa-check"></i></span>
+                            <span class="font-medium text-slate-700">Holistic Care (Physical & Spiritual)</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center"><i class="fas fa-check"></i></span>
+                            <span class="font-medium text-slate-700">Local Community Partnerships</span>
+                        </li>
+                    </ul>
+
+                    <a href="#programs" class="text-brand-primary font-bold tracking-wide uppercase text-sm border-b-2 border-brand-primary pb-1 hover:text-brand-dark hover:border-brand-dark transition-all inline-block">
+                        View Our Programs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs (Horizontal Scroll Snap) -->
+    <section id="programs" class="py-24 bg-brand-dark text-white relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+        
+        <div class="container mx-auto px-4 mb-12 flex justify-between items-end fade-in-up">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-serif mb-4">Areas of Focus</h2>
+                <p class="text-brand-muted max-w-md">Select a cause close to your heart.</p>
+            </div>
+            <div class="hidden md:flex gap-2">
+                <button class="scroll-left w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-brand-dark transition"><i class="fas fa-arrow-left"></i></button>
+                <button class="scroll-right w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-brand-dark transition"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Horizontal Scroller -->
+        <div id="cards-container" class="flex overflow-x-auto gap-6 pb-12 px-4 md:px-[calc((100vw-1280px)/2)] snap-x snap-mandatory hide-scrollbar">
+            
+            <!-- Card 1 (Image Fixed) -->
+            <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] bg-slate-800 rounded-[2rem] overflow-hidden relative group cursor-pointer transition-all hover:scale-[0.98]">
+                <!-- NEW IMAGE -->
+                <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <div class="w-12 h-12 bg-brand-accent rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Widows Care</h3>
+                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Providing monthly food staples, medical support, and vocational training.</p>
+                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Give Support</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] bg-slate-800 rounded-[2rem] overflow-hidden relative group cursor-pointer transition-all hover:scale-[0.98]">
+                <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <div class="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Child Safety</h3>
+                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Rescuing vulnerable children and providing safe homes and nutrition.</p>
+                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Protect a Child</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] bg-slate-800 rounded-[2rem] overflow-hidden relative group cursor-pointer transition-all hover:scale-[0.98]">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Scholarships</h3>
+                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Tuition and book fees for bright students from impoverished families.</p>
+                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Sponsor Student</a>
+                </div>
+            </div>
+
+             <!-- Card 4 -->
+             <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] bg-slate-800 rounded-[2rem] overflow-hidden relative group cursor-pointer transition-all hover:scale-[0.98]">
+                <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Missions</h3>
+                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Supporting local missionaries spreading the Gospel in remote villages.</p>
+                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Support Missions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgent CTA -->
+    <section class="py-24 container mx-auto px-4">
+        <div class="bg-brand-accent/10 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 relative overflow-hidden fade-in-up">
+            <!-- Decorative circle -->
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl"></div>
+
+            <div class="flex-1 relative z-10">
+                <div class="inline-block px-4 py-1 rounded-full border border-brand-accent text-brand-accent text-xs font-bold uppercase mb-6">Urgent Need</div>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mb-6">Emergency Food Relief</h2>
+                <p class="text-lg text-slate-600 mb-8">Currently, 30 widows in our network are without basic staples for the month. <span class="font-bold text-brand-primary">$50 covers one widow for an entire month.</span></p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://fillout.com" target="_blank" class="btn-glass btn-glass-accent px-8 py-4 rounded-full font-bold transition text-center">Give $50 Now</a>
+                    <a href="#" class="px-8 py-4 rounded-full font-bold text-brand-dark border border-brand-dark/20 hover:bg-white transition text-center">Learn More</a>
+                </div>
+            </div>
+            <div class="flex-1 relative">
+                <div class="relative z-10 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80&w=400" class="rounded-3xl transform translate-y-8 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=400" class="rounded-3xl shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10 relative overflow-hidden">
+        <!-- Giant Watermark -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 text-[20vw] font-serif font-bold text-white/5 whitespace-nowrap pointer-events-none select-none">IVANA</div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-12 gap-12 mb-20 border-b border-white/10 pb-16">
+                <div class="md:col-span-4">
+                    <a href="#" class="font-serif text-3xl font-bold mb-6 block">IVANA.</a>
+                    <p class="text-slate-400 mb-8 leading-relaxed max-w-sm">Making great differences in little ways. Restoring hope through Christ-centered compassion in the hardest places.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-primary hover:border-brand-primary transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 md:col-start-7">
+                    <h5 class="font-bold mb-6 text-brand-accent">Explore</h5>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li><a href="#about" class="hover:text-white transition">Our Story</a></li>
+                        <li><a href="#impact" class="hover:text-white transition">Impact</a></li>
+                        <li><a href="#programs" class="hover:text-white transition">Programs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h5 class="font-bold mb-6 text-brand-accent">Legal</h5>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition">Child Protection</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs text-slate-500">&copy; <span id="year"></span> Ivana Foundation. All Rights Reserved.</p>
+                
+                <a href="https://wopara.com" target="_blank" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-brand-accent transition">
+                    Website by Chim
+                    <i class="fas fa-bolt group-hover:animate-pulse"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Update Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Horizontal Scroll Buttons
+        const scrollContainer = document.getElementById('cards-container');
+        document.querySelector('.scroll-left').addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        document.querySelector('.scroll-right').addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Stop observing once revealed
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        // Number Counter Animation
+        const statsSection = document.getElementById('impact');
+        let statsAnimated = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && !statsAnimated) {
+                statsAnimated = true;
+                const counters = document.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if(current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+            }
+        }, { threshold: 0.5 });
+
+        if(statsSection) statsObserver.observe(statsSection);
+
+    </script>
+</body>
+</html>
