@@ -200,6 +200,13 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+
+        .site-logo {
+            filter: drop-shadow(0 6px 14px rgba(26, 22, 37, 0.3));
+        }
+        .site-logo:hover {
+            filter: drop-shadow(0 8px 20px rgba(26, 22, 37, 0.4));
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-white">
@@ -211,7 +218,7 @@
     <nav class="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4">
         <div class="bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-brand-dark/5 rounded-full px-6 py-3 flex items-center gap-8 transition-all duration-500 max-w-2xl w-full justify-between">
             <a href="#" class="flex items-center">
-                <img src="logo.png" alt="Ivana Foundation" class="h-10 w-auto hover:opacity-80 transition">
+                <img src="logo.png" alt="Ivana Foundation" class="site-logo h-24 w-auto object-contain saturate-125 contrast-125 hover:opacity-90 transition duration-300">
             </a>
             
             <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
@@ -318,13 +325,13 @@
             </div>
             
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 fade-in-up" style="transition-delay: 0.1s;">
-                <p class="text-6xl font-serif text-brand-primary mb-2 counter" data-target="120">0</p>
-                <p class="text-slate-500 font-medium">Widows Supported Monthly</p>
+                <p class="text-6xl font-serif text-brand-primary mb-2"><span class="counter" data-target="100">0</span><span class="text-4xl align-top">+</span></p>
+                <p class="text-slate-500 font-medium">Over 100 Widows Supported</p>
             </div>
 
             <div class="bg-brand-primary text-white p-8 rounded-3xl shadow-xl transform lg:-translate-y-12 fade-in-up" style="transition-delay: 0.2s;">
-                <p class="text-6xl font-serif text-brand-accent mb-2 counter" data-target="45">0</p>
-                <p class="text-white/80 font-medium">Student Scholarships Given</p>
+                <p class="text-6xl font-serif text-brand-accent mb-2"><span class="counter" data-target="100">0</span><span class="text-4xl align-top">+</span></p>
+                <p class="text-white/80 font-medium">Over 100 Students Given Scholarships</p>
             </div>
 
             <div class="bg-brand-base p-8 rounded-3xl border border-slate-200 fade-in-up" style="transition-delay: 0.3s;">
@@ -357,10 +364,10 @@
                         <span class="text-brand-accent decoration-brand-primary underline decoration-wavy decoration-2 underline-offset-8">Hands & Feet.</span>
                     </h2>
                     <p class="text-lg text-slate-600 mb-6 font-light">
-                        Ivana Foundation was born from a simple conviction: compassion isn't a feeling, it's an action. In communities where widows are marginalized and education is a luxury, we step in to bridge the gap.
+                        Ivana Foundation was born from a simple conviction: compassion isn't a feeling, it's an action. The name Ivana is of Slavic origin and means "gift from God" - and we believe that each of us can become a gift from God to widows, orphans, indigent students, and missionaries, especially in marginalized communities.
                     </p>
                     <p class="text-lg text-slate-600 mb-10 font-light">
-                        Every dollar given goes directly to the field. No bloated overhead, just practical love impacting real lives in real time.
+                        In places where widows are overlooked and education becomes a luxury, we step in to bridge the gap with practical, Christ-centred care. We keep our mission lean and our impact direct: every dollar given goes straight to the field - no bloated overhead, just practical love reaching real people in real time.
                     </p>
 
                     <ul class="space-y-4 mb-10">
@@ -425,9 +432,9 @@
                     <div class="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
                         <i class="fas fa-child"></i>
                     </div>
-                    <h3 class="text-3xl font-serif font-medium mb-2">Child Safety</h3>
-                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Rescuing vulnerable children and providing safe homes and nutrition.</p>
-                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Protect a Child</a>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Orphan Support</h3>
+                    <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Providing food, safe shelter, discipleship, and daily care for vulnerable orphans.</p>
+                    <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Protect an Orphan</a>
                 </div>
             </div>
 
@@ -440,7 +447,7 @@
                     <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mb-4 shadow-lg group-hover:-translate-y-2 transition duration-300">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="text-3xl font-serif font-medium mb-2">Scholarships</h3>
+                    <h3 class="text-3xl font-serif font-medium mb-2">Scholarship/Sponsorship</h3>
                     <p class="text-slate-300 line-clamp-2 mb-6 group-hover:line-clamp-none transition-all">Tuition and book fees for bright students from impoverished families.</p>
                     <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Sponsor Student</a>
                 </div>
@@ -460,6 +467,59 @@
                     <a href="https://fillout.com" target="_blank" class="inline-block btn-glass btn-glass-light px-6 py-2 rounded-full font-bold text-sm transition">Support Missions</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Board Members -->
+    <section class="py-24 container mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 fade-in-up">
+            <div>
+                <h3 class="font-bold text-sm tracking-widest uppercase text-brand-accent mb-2">Leadership</h3>
+                <h2 class="text-4xl md:text-5xl font-serif text-brand-dark">Board Members</h2>
+            </div>
+            <p class="text-slate-600 max-w-xl">Our board provides strategic oversight and keeps our mission focused on direct, Christ-centered impact.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <article class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition fade-in-up" style="transition-delay: 0.05s;">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" alt="Board Member 01" class="w-full h-64 object-cover">
+                <div class="p-5">
+                    <h3 class="font-serif text-2xl text-brand-dark">Board Member 01</h3>
+                    <p class="text-slate-500 text-sm">Leadership Team</p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition fade-in-up" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Board Member 02" class="w-full h-64 object-cover">
+                <div class="p-5">
+                    <h3 class="font-serif text-2xl text-brand-dark">Board Member 02</h3>
+                    <p class="text-slate-500 text-sm">Leadership Team</p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition fade-in-up" style="transition-delay: 0.15s;">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600" alt="Board Member 03" class="w-full h-64 object-cover">
+                <div class="p-5">
+                    <h3 class="font-serif text-2xl text-brand-dark">Board Member 03</h3>
+                    <p class="text-slate-500 text-sm">Leadership Team</p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition fade-in-up" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&q=80&w=600" alt="Board Member 04" class="w-full h-64 object-cover">
+                <div class="p-5">
+                    <h3 class="font-serif text-2xl text-brand-dark">Board Member 04</h3>
+                    <p class="text-slate-500 text-sm">Leadership Team</p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition fade-in-up" style="transition-delay: 0.25s;">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Board Member 05" class="w-full h-64 object-cover">
+                <div class="p-5">
+                    <h3 class="font-serif text-2xl text-brand-dark">Board Member 05</h3>
+                    <p class="text-slate-500 text-sm">Leadership Team</p>
+                </div>
+            </article>
         </div>
     </section>
 
